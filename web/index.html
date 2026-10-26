@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CS2 Font Studio</title>
+<link rel="icon" href="icon.ico">
+<link rel="stylesheet" href="fonts/preview-fonts.css">
+<link rel="stylesheet" href="app.css">
+</head>
+<body class="hlchg">
+<div id="banner" aria-live="polite"></div>
+<div id="drop" hidden><div class="drop-box"><span class="drop-title">Drop to import</span><span>.zip with fonts or .json settings</span></div></div>
+<main>
+  <h1 class="visually-hidden">CS2 Font Studio</h1>
+  <div class="toolbar">
+    <div class="tabs" role="tablist" aria-label="Preview screen" id="tabs"></div>
+    <div class="toggles">
+      <label class="sw" title="Outlines every text: blue = its font can be changed, dotted = default font no group reaches, dashed = fixed frame the game clips text to (longer text is cut off, too tall text is clipped).">
+        <input type="checkbox" id="frames"><span class="cap"><i class="knob"></i></span><span>Text frames</span></label>
+      <label class="sw" title="Dims every text that keeps the original font.">
+        <input type="checkbox" id="hlchg" checked><span class="cap"><i class="knob"></i></span><span>Highlight changes</span></label>
+    </div>
+  </div>
+  <div id="stage" role="tabpanel" aria-label="Preview"></div>
+  <p class="hint">Click a text to edit its font group. All texts in the same group light up: they change together.</p>
+</main>
+<aside>
+  <div class="aside-scroll">
+    <div id="csinfo"></div>
+    <h2>Font groups</h2>
+    <div class="bar"><span id="count">0 groups changed</span>
+      <label class="sw"><input type="checkbox" id="onlychg"><span class="cap"><i class="knob"></i></span><span>Changed only</span></label></div>
+    <input type="search" id="q" placeholder="Filter by group or screen, e.g. chat, mono, bold" aria-label="Filter font groups" autocomplete="off" spellcheck="false">
+    <div class="cfg">
+      <button type="button" class="sec cfgbtn" id="cfgBtn" aria-haspopup="menu" aria-expanded="false" aria-controls="cfgMenu"><span id="cfgLabel">Configurations</span></button>
+      <div id="cfgMenu" role="menu" aria-label="Configurations" hidden></div>
+    </div>
+    <form class="pathform" id="profForm" hidden>
+      <input type="text" id="profName" aria-label="Configuration name" maxlength="60" placeholder="Name, e.g. Competitive HUD" autocomplete="off" spellcheck="false">
+      <button type="submit" class="act sm">Save</button>
+      <button type="button" class="sec sm" id="profCancel">Cancel</button>
+    </form>
+    <input type="file" id="import" accept=".zip,.json,application/zip,application/json" hidden>
+    <div class="fam gtext" id="gtext">
+      <div class="fam-top">
+        <div class="fam-head static"><span class="fam-name">Global text size</span><span class="fam-desc">Scales all text in the game, fallback fonts included</span></div>
+        <button type="button" class="rst" id="gtReset" title="Back to the game's default size" disabled>Reset</button>
+      </div>
+      <div class="ctl">
+        <label class="l" for="gt">Size</label><input id="gt" type="range" min="0.5" max="2" step="0.05" value="1" title="Double-click to reset. Multiplies the size of every font. Fixed frames do not grow, so larger text gets clipped there.">
+        <output id="gtOut" for="gt">×1.00</output>
+      </div>
+    </div>
+    <div id="allbox"></div>
+    <div id="fams"></div>
+    <div id="nomatch" hidden>No group matches the filter.</div>
+    <details id="moreBox"><summary>More groups <span id="moreCount"></span></summary><div id="more"></div></details>
+    <p class="note">Groups you do not change are shown in Stratum2 if it is installed on this PC, otherwise in a similar stand-in font (Saira). In the game they keep using Stratum2.</p>
+    <p class="warn">Preview ≠ game (Pango/FreeType, hintnone). CS2 reads its fonts only at startup: restart it after applying.</p>
+  </div>
+  <div class="aside-foot">
+    <div class="dirty" id="dirty"><span class="dot"></span><span id="dirtyText">No changes</span></div>
+    <div class="btns"><button type="button" class="act" id="save" title="Write the changes to the game (Ctrl+S)">Apply to game</button><button type="button" class="sec" id="reset" title="Remove all changes from the game">Reset</button></div>
+    <div id="status" role="status" aria-live="polite"></div>
+  </div>
+</aside>
+<script src="scenes.js"></script>
+<script src="scenes_measured.js"></script>
+<script src="scenes_extra.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
